@@ -8,7 +8,7 @@
 
   - name: Debug Facts Hostname
     ansible.builtin.debug:
-      msg: "{{ ansible_facts['nodename'] }}"      
+      msg: "{{ ansible_facts['nodename'] }}"
 
   - name: Debug Facts ipv4 - List
     ansible.builtin.debug:
@@ -17,4 +17,3 @@
   - name: Debug Facts SeLinux Status - Dictionary
     ansible.builtin.debug:
       msg: "{{ ansible_facts['selinux']['status'] }}"
-            

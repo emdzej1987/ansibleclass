@@ -1,47 +1,46 @@
 ---
 - hosts: linuxservers
-  become: yes
+  become: true
 
   vars:
-      package:
-         - httpd
-         - mariadb-server
-         - php
-         - php-mysqlnd
+    package:
+      - httpd
+      - mariadb-server
+      - php
+      - php-mysqlnd
 
   tasks:
-  - name: Install Packages
-    ansible.builtin.package:
-      name: "{{ package }}"
-      state: latest
+    - name: Install Packages
+      ansible.builtin.package:
+        name: "{{ package }}"
+        state: latest
 
-  - name: Enable httpd service
-    ansible.builtin.systemd:
-      name: httpd
-      state: started
-      enabled: yes
-    register: httpd_status
+    - name: Enable httpd service
+      ansible.builtin.systemd:
+        name: httpd
+        state: started
+        enabled: true
+      register: httpd_status
 
-  - name: Show Status
-    debug:
-      var: httpd_status      
+    - name: Show Status
+      debug:
+        var: httpd_status
 
-  - name: Is httpd running
-    debug:
-      msg: httpd is running
-    when: httpd_status.state == "started"      
+    - name: Is httpd running
+      debug:
+        msg: httpd is running
+      when: httpd_status.state == "started"
 
-  - name: Configure firewall
-    ansible.posix.firewalld:
-      zone: public
-      service: http
-      permanent: yes
-      state: enabled
-    notify: firewall reload
+    - name: Configure firewall
+      ansible.posix.firewalld:
+        zone: public
+        service: http
+        permanent: true
+        state: enabled
+      notify: firewall reload
 
   handlers:
-  - name: firewall reload
-    ansible.builtin.systemd:
-      name: firewalld
-      state: reloaded
-      
+    - name: firewall reload
+      ansible.builtin.systemd:
+        name: firewalld
+        state: reloaded
