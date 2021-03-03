@@ -5,35 +5,36 @@
     websiteheader: "Ansible Playbook"
     websiteauthor: "Milosz"
   tasks:
-  - name: Install Apache
-    dnf:
-      name: httpd
-      state: latest
+    - name: Install Apache
+      dnf:
+        name: httpd
+        state: present
 
-  - name: Enable Apache
-    systemd:
-      name: httpd
-      enabled: yes
-      state: started
+    - name: Enable Apache
+      systemd:
+        name: httpd
+        enabled: true
+        state: started
 
-  - name: Allow http in firewall
-    ansible.posix.firewalld:
-      service: http
-      permanent: true
-      state: enabled
-      immediate: yes
-    notify:
-      - reload firewall
+    - name: Allow http in firewall
+      ansible.posix.firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: true
+      notify:
+        - reload firewall
 
-  - name: Add index.html
-    template:
-      src: index.html.j2
-      dest: /var/www/html/index.html
-      owner: root
-      group: root
+    - name: Add index.html
+      template:
+        src: index.html.j2
+        dest: /var/www/html/index.html
+        owner: root
+        group: root
+        mode: '7777'
 
   handlers:
-  - name: reload firewall
-    service:
-      name: firewalld
-      state: reloaded
+    - name: reload firewall
+      service:
+        name: firewalld
+        state: reloaded
