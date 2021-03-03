@@ -6,9 +6,9 @@
      - webserver
 
   tasks:
-  - name: Copy Index.php
-    ansible.builtin.copy:
-      src: index.php
-      dest: /var/www/html/index.php
-      owner: root
-      group: root
+     - name: Copy Index.php
+       ansible.builtin.copy:
+          src: index.php
+          dest: /var/www/html/index.php
+          owner: root
+          group: root
