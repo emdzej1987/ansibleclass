@@ -1,0 +1,40 @@
+---
+- hosts: tag_solution_webserver_mijatower
+  become: true
+  vars:
+    websiteheader: "Ansible Playbook"
+    websiteauthor: "Milosz"
+  tasks:
+    - name: Install Apache
+      dnf:
+        name: httpd
+        state: present
+
+    - name: Enable Apache
+      systemd:
+        name: httpd
+        enabled: true
+        state: started
+
+    - name: Allow http in firewall
+      firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: true
+      notify:
+        - reload firewall
+
+    - name: Add index.html
+      template:
+        src: index.html.j2
+        dest: /var/www/html/index.html
+        owner: root
+        group: root
+        mode: '7777'
+
+  handlers:
+    - name: reload firewall
+      service:
+        name: firewalld
+        state: reloaded
