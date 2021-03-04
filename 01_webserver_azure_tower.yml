@@ -1,9 +1,6 @@
 ---
 - hosts: tag_solution_webserver_mijatower
   become: true
-  vars:
-    websiteheader: "Ansible Playbook"
-    websiteauthor: "Milosz"
   tasks:
     - name: Install Apache
       dnf:
