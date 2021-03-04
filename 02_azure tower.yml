@@ -2,7 +2,7 @@
 - hosts: localhost
   connection: local
   vars:
-    user: mijatower
+    user: mijatower2
     location: northeurope
     virtual_network_name: "webserver_{{ user }}"
     subnet: Webserver

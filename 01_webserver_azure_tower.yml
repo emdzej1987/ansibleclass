@@ -1,5 +1,5 @@
 ---
-- hosts: tag_solution_webserver_mijatower
+- hosts: tag_solution_webserver_mijatower2
   become: true
   tasks:
     - name: Install Apache
