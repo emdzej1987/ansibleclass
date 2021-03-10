@@ -1,4 +1,5 @@
 ---
-- name: Test task
-  msg: This is a test
-  
+- hosts: localhost
+  tasks:
+    - name: Test
+      msg: This a test
