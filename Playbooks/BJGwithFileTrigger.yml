@@ -1,0 +1,19 @@
+---
+- hosts: win
+
+  vars:
+    triggers_file: 'C:\Test\Triggers.csv'
+    file_path: 'C:\F1\Test1.txt'
+    bjg_name: 'Test'
+
+  tasks:
+    - name: Check if trigger already enabled
+      win_lineinfile:
+        path: "{{ triggers_file }}"
+        line: "{{ file_path }},{{ bjg_name }}"
+      register: Configured
+
+    - name: Run BJG
+      ansible.builtin.debug:
+        msg: "BJG {{ bjg_name }} started successfully"
+      when: Configured.changed != True
