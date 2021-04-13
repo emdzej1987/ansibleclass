@@ -1,6 +1,8 @@
 ---
-- hosts: localhost
+- hosts: win
   tasks:
-    - name: Test
-      debug:
-        msg: This a test
+    - win_shell: '\\scd-test-01.bsp.simcorpcloud.com\scd-test\NetRoot\Bin\ScdSvcCtl.exe platform ping'
+      register: Platform_Status
+
+    - debug: var=Platform_Status.stdout_lines
+      
