@@ -3,4 +3,4 @@
   tasks:
     - name: Install winrm
       pip:
-      name: pywinrm
+        name: pywinrm
